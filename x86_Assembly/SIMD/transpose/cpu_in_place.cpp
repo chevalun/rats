@@ -1,6 +1,6 @@
 #include <algorithm>
 #include <cstdlib>
-#include "time.h"
+#include "time_test.h"
 
 #define DEM 2048
 
@@ -12,7 +12,7 @@ int main()
 		for(int j = 0; j < DEM; ++j)
 			mat[i][j] = rand();
 	
-	START_TEST
+	START_TEST(10)
 	for(int i = 0; i < DEM; ++i)
 		for(int j = i + 1; j < DEM; ++j)
 			std::swap(mat[i][j], mat[j][i]);

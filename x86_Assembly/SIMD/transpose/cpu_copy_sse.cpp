@@ -1,6 +1,6 @@
 #include <cstdlib>
 #include <xmmintrin.h>
-#include "time.h"
+#include "time_test.h"
 
 #define DEM 2048
 
@@ -13,7 +13,7 @@ int main()
 		for(int j = 0; j < DEM; ++j)
 			old_m[i][j] = rand();
 
-	START_TEST
+	START_TEST(10)
 
 	__m128 r0;
 	for(int i = 0; i < DEM; ++i)
