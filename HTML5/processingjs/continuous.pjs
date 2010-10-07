@@ -6,6 +6,7 @@ void setup()
 {
 	size(500, 375);
 	background(0, 0);
+	println("Draw a closed line on the image, move your mouse into the area, and press 's' on the keyboard.");
 }
 
 void draw()
