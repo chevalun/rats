@@ -36,26 +36,29 @@
       return this.scale(1, 1);
     });
     this.startPoint.click(f = __bind(function(event) {
-      var mark;
-      this.addPoint(this.startX, this.startY);
-      this.finished = true;
-      mark = this.paper.polyarea(this.points).attr({
-        "fill": "blue",
-        "fill-opacity": 0.1
-      });
-      mark.hover(function(event) {
-        return this.attr({
-          "fill-opacity": 0.5
-        });
-      }, function(event) {
-        return this.attr({
-          "fill-opacity": 0.1
-        });
-      });
-      mark.click(clickCallback);
+      this.finish();
       return this.startPoint.unclick(f);
     }, this));
     return this;
+  };
+  Polygon.prototype.finish = function() {
+    var finished, mark;
+    this.addPoint(this.startX, this.startY);
+    finished = true;
+    mark = this.paper.polyarea(this.points).attr({
+      "fill": "blue",
+      "fill-opacity": 0.1
+    });
+    mark.hover(function(event) {
+      return this.attr({
+        "fill-opacity": 0.5
+      });
+    }, function(event) {
+      return this.attr({
+        "fill-opacity": 0.1
+      });
+    });
+    return mark.click(clickCallback);
   };
   Polygon.prototype.addPoint = function(posX, posY) {
     var tail;

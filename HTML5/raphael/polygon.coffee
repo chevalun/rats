@@ -20,17 +20,21 @@ class Polygon
 				this.scale(1, 1)
 		)
 		@startPoint.click f = (event) =>
-			@addPoint(@startX, @startY)
-			@finished = true
-			mark = @paper.polyarea(@points).attr("fill": "blue", "fill-opacity": 0.1)
-			mark.hover(
-				(event) ->
-					this.attr("fill-opacity": 0.5)
-				(event) ->
-					this.attr("fill-opacity": 0.1)
-			)
-			mark.click(clickCallback)
+			@finish()
 			@startPoint.unclick(f)
+	
+	
+	finish: ->
+		@addPoint(@startX, @startY)
+		finished = true
+		mark = @paper.polyarea(@points).attr("fill": "blue", "fill-opacity": 0.1)
+		mark.hover(
+			(event) ->
+				this.attr("fill-opacity": 0.5)
+			(event) ->
+				this.attr("fill-opacity": 0.1)
+		)
+		mark.click(clickCallback)
 			
 	addPoint: (posX, posY) ->
 		tail = @points.top()
