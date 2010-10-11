@@ -1,0 +1,45 @@
+/* @pjs transparent=true; */
+
+int[][] direction = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+
+void setup()
+{
+	size(500, 375);
+	background(0, 0);
+	println("Draw a closed line on the image, move your mouse into the area, and press 's' on the keyboard.");
+}
+
+void draw()
+{
+	if(mousePressed) {
+		stroke(0, 0, 255, 255);
+		line(mouseX, mouseY, pmouseX, pmouseY);
+	}
+}
+
+void keyReleased() 
+{
+	color edge = color(0, 0, 255, 255);
+	color mask = color(0, 255, 0, 100);
+	if (key == 's' || key == 'S') {
+		loadPixels();
+		bool[] flag = new bool[height * width];
+		int[] q = new int[height * width];
+		q[0] = mouseY * width + mouseX;
+		int head = 0, tail = 1;
+		while(head < tail) {
+			int x = q[head] % width, y = floor(q[head]/width);
+			for(int i = 0; i < 4; ++i) {
+				int nx = x + direction[i][0], ny = y + direction[i][1];
+				int pos = nx + ny * width;
+				if ((flag[pos] == false) && ( ( red(pixels[pos]) != red(edge)) || (green(pixels[pos]) != green(edge)) || (blue(pixels[pos]) != blue(edge)) ) ) {
+					flag[pos] = true;
+					pixels[pos] = mask;
+					q[tail++] = pos;
+				}
+			}
+			++head;
+		}
+		updatePixels();
+	}
+}
