@@ -41,6 +41,7 @@ class Polygon
 	undo: ->
 		if @lines.length > 0
 			@lines.pop().remove()
+			@points.pop()
 				
 	addPoint: (posX, posY) ->
 		tail = @points.top()
@@ -55,18 +56,18 @@ currentPoly = null
 clickCallback = (event) ->
 	x = event.layerX
 	y = event.layerY
-	if currentPoly == null || currertPoly.isFinished()
+	if currentPoly == null || currentPoly.isFinished()
 		currentPoly = new Polygon(x, y, paper)
 	else
 		currentPoly.addPoint(x, y)
 
 fin = new HotKey('f', (event) ->
-	if currentPoly != null
+	if currentPoly != null && !currentPoly.isFinished()
 		currentPoly.finish()
 )
 
 undo = new HotKey('u', (event) ->
-	if currentPoly != null
+	if currentPoly != null && !currentPoly.isFinished()
 		currentPoly.undo()
 )
 

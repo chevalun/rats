@@ -64,7 +64,10 @@
     }
   };
   Polygon.prototype.undo = function() {
-    return this.lines.length > 0 ? this.lines.pop().remove() : null;
+    if (this.lines.length > 0) {
+      this.lines.pop().remove();
+      return this.points.pop();
+    }
   };
   Polygon.prototype.addPoint = function(posX, posY) {
     var tail;
@@ -83,13 +86,13 @@
     var x, y;
     x = event.layerX;
     y = event.layerY;
-    return currentPoly === null || currertPoly.isFinished() ? (currentPoly = new Polygon(x, y, paper)) : currentPoly.addPoint(x, y);
+    return currentPoly === null || currentPoly.isFinished() ? (currentPoly = new Polygon(x, y, paper)) : currentPoly.addPoint(x, y);
   };
   fin = new HotKey('f', function(event) {
-    return currentPoly !== null ? currentPoly.finish() : null;
+    return currentPoly !== null && !currentPoly.isFinished() ? currentPoly.finish() : null;
   });
   undo = new HotKey('u', function(event) {
-    return currentPoly !== null ? currentPoly.undo() : null;
+    return currentPoly !== null && !currentPoly.isFinished() ? currentPoly.undo() : null;
   });
   paper = Raphael("test", 500, 375);
   image = paper.image("moter.jpg", 0, 0, 500, 375);

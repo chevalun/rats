@@ -25,7 +25,7 @@ var HotKey = Class.create({
             ctrlKey: false,
             bubbleEvent : true,
             fireOnce : false, // Keep repeating event while key is pressed?
-            type: 'keydown';
+            type: 'keydown'
         },options || {});
         this.letter = letter;
 
