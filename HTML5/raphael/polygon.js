@@ -1,5 +1,5 @@
 (function() {
-  var Polygon, clickCallback, currertPoly, image, paper;
+  var Polygon, clickCallback, currentPoly, fin, image, paper, undo;
   var __bind = function(func, context) {
     return function(){ return func.apply(context, arguments); };
   };
@@ -21,6 +21,7 @@
     this.startY = _b;
     this.startX = _a;
     this.finished = false;
+    this.lines = [];
     this.points = [
       {
         x: this.startX,
@@ -43,27 +44,32 @@
   };
   Polygon.prototype.finish = function() {
     var mark;
-    this.addPoint(this.startX, this.startY);
-    this.finished = true;
-    mark = this.paper.polyarea(this.points).attr({
-      "fill": "blue",
-      "fill-opacity": 0.1
-    });
-    mark.hover(function(event) {
-      return this.attr({
-        "fill-opacity": 0.5
-      });
-    }, function(event) {
-      return this.attr({
+    if (this.points.length > 2) {
+      this.addPoint(this.startX, this.startY);
+      this.finished = true;
+      mark = this.paper.polyarea(this.points).attr({
+        "fill": "blue",
         "fill-opacity": 0.1
       });
-    });
-    return mark.click(clickCallback);
+      mark.hover(function(event) {
+        return this.attr({
+          "fill-opacity": 0.5
+        });
+      }, function(event) {
+        return this.attr({
+          "fill-opacity": 0.1
+        });
+      });
+      return mark.click(clickCallback);
+    }
+  };
+  Polygon.prototype.undo = function() {
+    return this.lines.length > 0 ? this.lines.pop().remove() : null;
   };
   Polygon.prototype.addPoint = function(posX, posY) {
     var tail;
     tail = this.points.top();
-    this.paper.line(tail.x, tail.y, posX, posY);
+    this.lines.push(this.paper.line(tail.x, tail.y, posX, posY));
     return this.points.push({
       x: posX,
       y: posY
@@ -72,13 +78,19 @@
   Polygon.prototype.isFinished = function() {
     return this.finished;
   };
-  currertPoly = null;
+  currentPoly = null;
   clickCallback = function(event) {
     var x, y;
     x = event.layerX;
     y = event.layerY;
-    return currertPoly === null || currertPoly.isFinished() ? (currertPoly = new Polygon(x, y, paper)) : currertPoly.addPoint(x, y);
+    return currentPoly === null || currertPoly.isFinished() ? (currentPoly = new Polygon(x, y, paper)) : currentPoly.addPoint(x, y);
   };
+  fin = new HotKey('f', function(event) {
+    return currentPoly !== null ? currentPoly.finish() : null;
+  });
+  undo = new HotKey('u', function(event) {
+    return currentPoly !== null ? currentPoly.undo() : null;
+  });
   paper = Raphael("test", 500, 375);
   image = paper.image("moter.jpg", 0, 0, 500, 375);
   image.click(clickCallback);
