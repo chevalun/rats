@@ -42,9 +42,9 @@
     return this;
   };
   Polygon.prototype.finish = function() {
-    var finished, mark;
+    var mark;
     this.addPoint(this.startX, this.startY);
-    finished = true;
+    this.finished = true;
     mark = this.paper.polyarea(this.points).attr({
       "fill": "blue",
       "fill-opacity": 0.1

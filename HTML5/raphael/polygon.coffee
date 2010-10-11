@@ -26,7 +26,7 @@ class Polygon
 	
 	finish: ->
 		@addPoint(@startX, @startY)
-		finished = true
+		@finished = true
 		mark = @paper.polyarea(@points).attr("fill": "blue", "fill-opacity": 0.1)
 		mark.hover(
 			(event) ->
