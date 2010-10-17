@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<title>Danmaku Demo</title>
+	<script src="./raphael.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./plugins/raphael.primitives.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./video-js/video.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" href="./video-js/video-js.css" type="text/css" media="screen" title="Video JS" charset="utf-8">
+	<script type="text/javascript" charset="utf-8">
+	  VideoJS.setupAllWhenReady({controlsBelow: true, controlsHiding: false});
+	</script>
+</head>
+
+<body>
+	<div id="test" style="top: 0px; left: 0px; position: absolute;">
+		<div class="video-js-box" style="top: 0px; left: 0px; position: absolute; z-index: -100;">
+	  		<video id="ocean-clip" class="video-js" width="640" height="264" controls preload poster="./video/oceans-clip.png">
+	    	<source src="./video/oceans-clip.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+	    	<source src="./video/oceans-clip.webm" type='video/webm; codecs="vp8, vorbis"'>
+	    	<source src="./video/oceans-clip.ogv" type='video/ogg; codecs="theora, vorbis"'>
+	     	<img src="./video/oceans-clip.png" width="640" height="264" alt="Poster Image" title="No video playback capabilities." />
+	  	</video>
+	  	<p class="vjs-no-video">
+	    	<a href="http://videojs.com">HTML5 Video Player</a> by VideoJS
+	  	</p>
+	  	<p style="top: 300px; left: 20px; position: absolute;">
+	    	<input type="text" name="danmaku-text">
+	    	<input type="submit" name="submit-danmaku">
+	  	</p>
+		<script src="./danmaku.js" type="text/javascript" charset="utf-8"></script>
+		</div>
+	</div>
+</body>
+</html>
